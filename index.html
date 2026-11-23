@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bella Beauty | Loja de Beleza</title>
+  <meta name="description" content="Descobre produtos de skincare, maquilhagem, cabelos e perfumes na Bella Beauty.">
+
+  <style>
+    :root {
+      --rosa: #e85d91;
+      --rosa-claro: #fff0f5;
+      --escuro: #30232b;
+      --cinza: #746c72;
+      --branco: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffafb;
+      color: var(--escuro);
+      line-height: 1.6;
+    }
+
+    header {
+      background: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 3px 15px #00000010;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--rosa);
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      border: none;
+      background: transparent;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--escuro);
+      border-radius: 20px;
+    }
+
+    nav button:hover,
+    nav button.ativo {
+      background: var(--rosa-claro);
+      color: var(--rosa);
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #ffe1ed, #fff9f5);
+      padding: 85px 7%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--cinza);
+      margin-bottom: 28px;
+    }
+
+    .botao {
+      display: inline-block;
+      background: var(--rosa);
+      color: white;
+      padding: 13px 24px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .botao:hover {
+      background: #c83f74;
+      transform: translateY(-2px);
+    }
+
+    .pagina {
+      display: none;
+      padding: 55px 7%;
+      min-height: 60vh;
+    }
+
+    .pagina.ativa {
+      display: block;
+    }
+
+    .titulo {
+      text-align: center;
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .subtitulo {
+      text-align: center;
+      color: var(--cinza);
+      margin-bottom: 35px;
+    }
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .produto {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px #0000000d;
+      transition: 0.2s;
+    }
+
+    .produto:hover {
+      transform: translateY(-5px);
+    }
+
+    .produto img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .produto-info {
+      padding: 22px;
+    }
+
+    .produto h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .produto p {
+      color: var(--cinza);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .preco-antigo {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    .preco {
+      font-size: 24px;
+      color: var(--rosa);
+      font-weight: bold;
+    }
+
+    .produto .botao {
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .vantagens {
+      background: var(--rosa-claro);
+      padding: 45px 7%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      text-align: center;
+    }
+
+    .vantagem h3 {
+      color: var(--rosa);
+      margin-bottom: 8px;
+    }
+
+    footer {
+      background: var(--escuro);
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    footer p {
+      margin: 6px 0;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      nav button {
+        font-size: 13px;
+        padding: 8px;
+      }
+
+      .hero {
+        padding: 55px 6%;
+      }
+
+      .pagina {
+        padding: 40px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="logo">Bella Beauty ✨</div>
+
+    <nav>
+      <button class="ativo" onclick="mostrarPagina('skincare', this)">
+        Skincare
+      </button>
+      <button onclick="mostrarPagina('maquilhagem', this)">
+        Maquilhagem
+      </button>
+      <button onclick="mostrarPagina('cabelos', this)">
+        Cabelos
+      </button>
+      <button onclick="mostrarPagina('perfumes', this)">
+        Perfumes
+      </button>
+    </nav>
+  </header>
+
+  <!-- BANNER PRINCIPAL -->
+  <section class="hero">
+    <h1>Realça a tua beleza natural 💗</h1>
+    <p>
+      Descobre os melhores cuidados de beleza
+      com preços especiais.
+    </p>
+    <button class="botao" onclick="verProdutos()">
+      Comprar agora
+    </button>
+  </section>
+
+  <!-- PÁGINA 1: SKINCARE -->
+  <section id="skincare" class="pagina ativa">
+
+    <h2 class="titulo">Cuidados de Pele</h2>
+    <p class="subtitulo">
+      Uma rotina de beleza para uma pele radiante.
+    </p>
+
+    <div class="produtos">
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600"
+          alt="Sérum facial"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Sérum Facial Glow</h3>
+          <p>
+            Hidratação e luminosidade para a tua pele.
+          </p>
+          <span class="preco-antigo">29,90 €</span>
+          <span class="preco">19,90 €</span>
+          <button class="botao" onclick="comprar('Sérum Facial Glow', '19,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=600"
+          alt="Creme facial"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Creme Hidratante</h3>
+          <p>
+            Cuidado diário para uma pele suave.
+          </p>
+          <span class="preco-antigo">24,90 €</span>
+          <span class="preco">16,90 €</span>
+          <button class="botao" onclick="comprar('Creme Hidratante', '16,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600"
+          alt="Produtos de skincare"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Kit Skincare Premium</h3>
+          <p>
+            Cuidados essenciais para a tua rotina.
+          </p>
+          <span class="preco-antigo">59,90 €</span>
+          <span class="preco">39,90 €</span>
+          <button class="botao" onclick="comprar('Kit Skincare Premium', '39,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PÁGINA 2: MAQUILHAGEM -->
+  <section id="maquilhagem" class="pagina">
+
+    <h2 class="titulo">Maquilhagem</h2>
+    <p class="subtitulo">
+      Produtos para criar looks incríveis.
+    </p>
+
+    <div class="produtos">
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600"
+          alt="Produtos de maquilhagem"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Kit Maquilhagem Glam</h3>
+          <p>
+            Essenciais para uma maquilhagem perfeita.
+          </p>
+          <span class="preco-antigo">49,90 €</span>
+          <span class="preco">34,90 €</span>
+          <button class="botao" onclick="comprar('Kit Maquilhagem Glam', '34,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600"
+          alt="Batom"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Batom Matte Luxo</h3>
+          <p>
+            Cor intensa e acabamento elegante.
+          </p>
+          <span class="preco-antigo">19,90 €</span>
+          <span class="preco">12,90 €</span>
+          <button class="botao" onclick="comprar('Batom Matte Luxo', '12,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600"
+          alt="Paleta de sombras"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Paleta de Sombras</h3>
+          <p>
+            Tons versáteis para qualquer ocasião.
+          </p>
+          <span class="preco-antigo">35,90 €</span>
+          <span class="preco">24,90 €</span>
+          <button class="botao" onclick="comprar('Paleta de Sombras', '24,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PÁGINA 3: CABELOS -->
+  <section id="cabelos" class="pagina">
+
+    <h2 class="titulo">Cuidados Capilares</h2>
+    <p class="subtitulo">
+      Dá ao teu cabelo o cuidado que merece.
+    </p>
+
+    <div class="produtos">
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=600"
+          alt="Produtos capilares"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Champô Nutritivo</h3>
+          <p>
+            Limpeza suave para cabelos bonitos.
+          </p>
+          <span class="preco-antigo">22,90 €</span>
+          <span class="preco">15,90 €</span>
+          <button class="botao" onclick="comprar('Champô Nutritivo', '15,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600"
+          alt="Tratamento capilar"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Máscara Capilar</h3>
+          <p>
+            Nutrição e suavidade para os fios.
+          </p>
+          <span class="preco-antigo">29,90 €</span>
+          <span class="preco">21,90 €</span>
+          <button class="botao" onclick="comprar('Máscara Capilar', '21,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600"
+          alt="Óleo de beleza"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Óleo Reparador</h3>
+          <p>
+            Brilho e cuidado para as pontas.
+          </p>
+          <span class="preco-antigo">25,90 €</span>
+          <span class="preco">17,90 €</span>
+          <button class="botao" onclick="comprar('Óleo Reparador', '17,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PÁGINA 4: PERFUMES -->
+  <section id="perfumes" class="pagina">
+
+    <h2 class="titulo">Perfumes Exclusivos</h2>
+    <p class="subtitulo">
+      Fragrâncias para momentos inesquecíveis.
+    </p>
+
+    <div class="produtos">
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600"
+          alt="Perfume de luxo"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Perfume Elegance</h3>
+          <p>
+            Uma fragrância sofisticada e delicada.
+          </p>
+          <span class="preco-antigo">69,90 €</span>
+          <span class="preco">49,90 €</span>
+          <button class="botao" onclick="comprar('Perfume Elegance', '49,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+          alt="Fragrância premium"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Perfume Rose</h3>
+          <p>
+            Notas florais para o dia a dia.
+          </p>
+          <span class="preco-antigo">59,90 €</span>
+          <span class="preco">42,90 €</span>
+          <button class="botao" onclick="comprar('Perfume Rose', '42,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <img
+          src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600"
+          alt="Frasco de perfume"
+          loading="lazy"
+        >
+        <div class="produto-info">
+          <h3>Perfume Luxury Night</h3>
+          <p>
+            Aroma marcante para ocasiões especiais.
+          </p>
+          <span class="preco-antigo">79,90 €</span>
+          <span class="preco">54,90 €</span>
+          <button class="botao" onclick="comprar('Perfume Luxury Night', '54,90 €')">
+            Comprar agora
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- VANTAGENS -->
+  <section class="vantagens">
+    <div class="vantagem">
+      <h3>✨ Beleza</h3>
+      <p>Produtos selecionados para ti.</p>
+    </div>
+
+    <div class="vantagem">
+      <h3>💗 Preços Especiais</h3>
+      <p>Ofertas em várias categorias.</p>
+    </div>
+
+    <div class="vantagem">
+      <h3>📱 Compra Fácil</h3>
+      <p>Faz o teu pedido pelo WhatsApp.</p>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <h2>Bella Beauty ✨</h2>
+    <p>A tua beleza, a nossa inspiração.</p>
+    <p>© 2026 Bella Beauty. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // SUBSTITUI PELO TEU NÚMERO DE WHATSAPP
+    // Exemplo de Portugal: 351912345678
+    const whatsapp = "351900000000";
+
+    // MOSTRAR AS 4 PÁGINAS
+    function mostrarPagina(id, botao) {
+      document.querySelectorAll(".pagina").forEach(pagina => {
+        pagina.classList.remove("ativa");
+      });
+
+      document.getElementById(id).classList.add("ativa");
+
+      document.querySelectorAll("nav button").forEach(btn => {
+        btn.classList.remove("ativo");
+      });
+
+      if (botao) {
+        botao.classList.add("ativo");
+      }
+
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    // BOTÃO COMPRAR AGORA DO BANNER
+    function verProdutos() {
+      const pagina = document.querySelector(".pagina.ativa");
+      pagina.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    // COMPRAR PRODUTO PELO WHATSAPP
+    function comprar(produto, preco) {
+      const mensagem =
+        "Olá! Gostaria de comprar o produto: " +
+        produto +
+        "\nPreço: " +
+        preco +
+        "\nPodem dar-me mais informações?";
+
+      const link =
+        "https://wa.me/" +
+        whatsapp +
+        "?text=" +
+        encodeURIComponent(mensagem);
+
+      window.open(link, "_blank", "noopener,noreferrer");
+    }
+  </script>
+
+</body>
+</html>
+
